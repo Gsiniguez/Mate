@@ -14,7 +14,7 @@ export class DatabaseProvider {
     if(!this.isOpen){
       this.storage = new SQLite()
       this.storage.create({name:'data.db',location:'default'}).then((db:SQLiteObject) =>{
-        db.executeSql("CREATE TABLE IF NOT EXIST materias(id INTEGER PRIMARY KEY AUTOINCREMENT, num INTEGER, name TEXT, estado TEXT, puedecursar TEXT, resta num)",[])
+        db.executeSql("CREATE TABLE IF NOT EXIST viajes(id INTEGER PRIMARY KEY AUTOINCREMENT, integrantes TEXT, gastos REAL)",[])
         this.isOpen = true
       }).catch((e) => {
         console.log(e)
@@ -22,10 +22,10 @@ export class DatabaseProvider {
     }
   }
 
-  CreateMaterias(num:number, name:string, estado:string, puedecursar:string, resta:number){
+  CreateViajes(integrantes:string, gastos:number){
     return new Promise((resolve,reject) => {
-      let sql = "INSERT INTO materias (num, name, estdo, puedecursar, resta) VALUES (?,?,?,?,?)"
-      this.db.executeSql (sql, [num, name, estado, puedecursar, resta]).then((data)=>{
+      let sql = "INSERT INTO viajes(integrantes, gastos) VALUES (?,?)"
+      this.db.executeSql (sql, [integrantes,gastos]).then((data)=>{
         resolve(data)
       }), (error) => {
         reject(error)
@@ -33,23 +33,20 @@ export class DatabaseProvider {
     })
   }
 
-  GetMaterias(){
+  GetViajes(){
     return new Promise((resolve , reject) =>{
-      this.db.executeSql ("SELECT * FROM materias", []).then((data)=>{
-        let arrayMaterias= []
+      this.db.executeSql ("SELECT * FROM viajes", []).then((data)=>{
+        let arrayViajes= []
         if(data.rows.lenght > 0){
           for(var i=0; i < data.rows.lenght; i++){
-            arrayMaterias.push({
+            arrayViajes.push({
               id: data.rows.item(i).id,
-              num:data.rows.item(i).num,
-              name: data.rows.item(i).name,
-              estado:data.rows.item(i).estado,
-              puedecursar: data.rows.item(i).puedecursar,
-              resta: data.rows.item(i).resta,
+              integrantes:data.rows.item(i).integrantes,
+              gastos: data.rows.item(i).gastos,
             })
           }
         }
-        resolve(arrayMaterias)
+        resolve(arrayViajes)
       }), (error) =>{
         reject(error)
       }
