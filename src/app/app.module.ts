@@ -14,6 +14,7 @@ import {AngularFireModule} from 'angularfire2'
 import { LoginPage } from '../pages/login/login';
 import { RegistroPage } from '../pages/registro/registro';
 import { CrearviajePage } from '../pages/crearviaje/crearviaje';
+import { CreargrupoPage } from '../pages/creargrupo/creargrupo';
 
 var config = {
   apiKey: "AIzaSyCkJzzROoPXjQUVYPv7qEr_kNCjYW-D9YM",
@@ -30,7 +31,8 @@ var config = {
     HomePage,
     LoginPage,
     RegistroPage,
-    CrearviajePage, 
+    CrearviajePage,
+    CreargrupoPage,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +48,7 @@ var config = {
     LoginPage,
     RegistroPage,
     CrearviajePage,
+    CreargrupoPage,
   ],
   providers: [
     StatusBar,
